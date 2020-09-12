@@ -1,4 +1,5 @@
-set -euo pipefail
+#set -euo pipefail
+set -xv
 
 commitInfo() {
   git rev-parse HEAD | tr -d '\n' || return 1
