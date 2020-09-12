@@ -24,7 +24,5 @@ BIN_DIR="${SOURCE_ROOT}/bin/${RELEASE_NAME}"
 mkdir -p $BIN_DIR
 echo "Creating ${RELEASE_NAME}.tar.gz..." 1>&2
 "$SOURCE_ROOT/release/build.bash" "$BIN_DIR/$BINARY" "$RELEASE_VERSION"
-ls -al $BIN_DIR
 tar -C "${BIN_DIR}" -cvzf "${RELEASE_NAME}.tar.gz" "${BINARY}"
-ls -al $BIN_DIR
 echo "::set-output name=file::${RELEASE_NAME}.tar.gz"

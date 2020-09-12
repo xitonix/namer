@@ -19,7 +19,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
     - name: Download dependencies
-      run: ls && go mod download -x
+      run: go mod download -x
       env:
         GO111MODULE: on
     - name: Package release
