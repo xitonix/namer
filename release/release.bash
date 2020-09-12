@@ -10,6 +10,7 @@ if [[ $# -gt 1 ]]; then
   exit 64
 fi
 SOURCE_ROOT="$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
+ls $SOURCE_ROOT
 RELEASE_VERSION="${1:-$(echo "${GITHUB_REF:-}" | parse_tag_ref)}"
 if [[ -z "$RELEASE_VERSION" ]]; then
   echo "release/release.bash: cannot infer version, please pass explicitly" 1>&2
