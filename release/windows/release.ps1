@@ -17,7 +17,7 @@ If ( $wixVersionMatch.success ) {
 
 .\build.ps1 `
   -version $version `
-  -out $env:BINARY.exe
+  -binary $env:BINARY
 
 & "${env:wix}bin\candle.exe" `
   -nologo `
