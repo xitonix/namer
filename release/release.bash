@@ -1,5 +1,4 @@
-#set -euo pipefail
-set -xv
+set set -euxo pipefail
 
 parse_tag_ref() {
   python -c 'import re, sys; x = sys.stdin.readline().strip(); x = x[x.rindex("/")+1:] if x.rfind("/") != -1 else x; print(x.lstrip("v") if re.match(r"v[0-9]", x) else "")'

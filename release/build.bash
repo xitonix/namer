@@ -1,5 +1,4 @@
-#set -euo pipefail
-set -xv
+set set -euxo pipefail
 
 if [[ $# -ne 1 && $# -ne 2 ]]; then
   echo "usage: release/build.bash OUT [VERSION]" 1>&2
@@ -11,4 +10,4 @@ RUNTIME=$(go version | cut -d' ' -f 3)
 
 cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
 VERSION="v${2:-}"
-go build -o "$1" -ldflags="-s -w -X main.version=${VERSION} -X main.runtimeVer=${RUNTIME} -X main.commit=${GITHUB_SHA} -X main.binary=${BINARY} -X 'main.built=${BUILD_TIME}'" *.go
+go build -o "$1" -ldflags="-s -w -X main.version=${VERSION} -X main.runtimeVer=${RUNTIME} -X main.commit=${GITHUB_SHA} -X 'main.built=${BUILD_TIME}'" *.go

@@ -14,14 +14,13 @@ var (
 	commit     string
 	runtimeVer string
 	built      string
-	binary     string
 )
 
 func main() {
 	showVersion := flag.Bool("v", false, "Shows the version")
 	flag.Parse()
 	if *showVersion {
-		fmt.Printf("%s %s (%s) runtime: %s on %s\n", binary, version, commit, runtimeVer, built)
+		fmt.Printf("namer %s (%s) runtime: %s on %s\n", version, commit, runtimeVer, built)
 		return
 	}
 	gofakeit.Seed(time.Now().UnixNano())
