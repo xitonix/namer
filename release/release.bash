@@ -1,5 +1,5 @@
 #set -euo pipefail
-set -xv pipefail
+set -xv
 
 parse_tag_ref() {
   python -c 'import re, sys; x = sys.stdin.readline().strip(); x = x[x.rindex("/")+1:] if x.rfind("/") != -1 else x; print(x.lstrip("v") if re.match(r"v[0-9]", x) else "")'
@@ -20,14 +20,11 @@ fi
 RELEASE_OS="$(go env GOOS)"
 RELEASE_ARCH="$(go env GOARCH)"
 RELEASE_NAME="${BINARY}_${RELEASE_VERSION}_${RELEASE_OS}_${RELEASE_ARCH}"
-
+BIN_DIR="${SOURCE_ROOT}/bin/${RELEASE_NAME}"
+mkdir -p $BIN_DIR
 echo "Creating ${RELEASE_NAME}.tar.gz..." 1>&2
-STAGE_DIR=$(mktemp -d 2>/dev/null || mktemp -d -t ${BINARY}_release)
-trap "rm -rf ${STAGE_DIR}" EXIT
-DIST_ROOT="${STAGE_DIR}/${RELEASE_NAME}"
-mkdir "$DIST_ROOT"
-"$SOURCE_ROOT/release/build.bash" "$DIST_ROOT/$BINARY" "$RELEASE_VERSION"
-ls $DIST_ROOT
-ls $STAGE_DIR
-tar -zcvf - -C "$STAGE_DIR" "$RELEASE_NAME" > "${RELEASE_NAME}.tar.gz"
+"$SOURCE_ROOT/release/build.bash" "$BIN_DIR/$BINARY" "$RELEASE_VERSION"
+ls -al $BIN_DIR
+tar -C "${BIN_DIR}" -cvzf "${RELEASE_NAME}.tar.gz" "${BINARY}"
+ls -al $BIN_DIR
 echo "::set-output name=file::${RELEASE_NAME}.tar.gz"
