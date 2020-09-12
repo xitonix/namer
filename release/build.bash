@@ -1,4 +1,4 @@
-set set -euxo pipefail
+set -euxo pipefail
 
 if [[ $# -ne 1 && $# -ne 2 ]]; then
   echo "usage: release/build.bash OUT [VERSION]" 1>&2
