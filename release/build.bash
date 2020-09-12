@@ -23,4 +23,4 @@ cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
 ls
 #commit="${GITHUB_SHA:-$(commitInfo)}"
 VERSION="${2:-}"
-go build -o "$1" -ldflags="-s -w -X main.version=${VERSION} main.runtimeVer=${RUNTIME} -X main.commit=${GITHUB_SHA} -X main.binary=${BINARY}" github.com/xitonix/${BINARY}
+go build -o "$1" -ldflags="-s -w -X main.version=${VERSION} -X main.runtimeVer=${RUNTIME} -X main.commit=${GITHUB_SHA} -X main.binary=${BINARY}" github.com/xitonix/${BINARY}
