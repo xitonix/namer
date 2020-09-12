@@ -17,10 +17,6 @@
       Compressed="yes"
       SummaryCodepage="1252" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-    <Property Id="ARPREADME" Value="" />
-    <Property Id="ARPURLINFOABOUT" Value="" />
-    <Property Id="ARPPRODUCTICON" Value="" />
-    <WixVariable Id="WixUILicenseRtf" Value="" />
 
     <Media Id="1" Cabinet="$(var.Binary).cab" EmbedCab="yes" CompressionLevel="high" />
     <Condition Message="Windows 7 (with Service Pack 1) or greater required.">
