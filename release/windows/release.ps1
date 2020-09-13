@@ -1,11 +1,11 @@
-param($version='')
+param($version,$binary)
 
 If ( ! ( Test-Path Env:wix ) ) {
     Write-Error 'WiX not installed; cannot find %wix%.'
     exit 1
 }
 
-$filename="$env:BINARY_${version}_amd64.msi"
+$filename="$binary_v${version}_amd64.msi"
 $wixVersion="0.0.0"
 $wixVersionMatch=[regex]::Match($version, '^([0-9]+\.[0-9]+\.[0-9]+)')
 If ( $wixVersionMatch.success ) {
@@ -17,14 +17,14 @@ If ( $wixVersionMatch.success ) {
 
 .\build.ps1 `
   -version $version `
-  -binary $env:BINARY
+  -binary $binary
 
 & "${env:wix}bin\candle.exe" `
   -nologo `
   -arch x64 `
   "-dAppVersion=$version" `
   "-dWixVersion=$wixVersion" `
-  "-dBinary=$env:BINARY" `
+  "-dBinary=$binary" `
   release.wxs
 If ( $LastExitCode -ne 0 ) {
     exit $LastExitCode

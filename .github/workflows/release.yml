@@ -51,7 +51,7 @@ jobs:
         env:
           GO111MODULE: on
       - name: Package release
-        run: .\release.ps1 -version ($Env:GITHUB_REF).trimstart('refs/tags/v')
+        run: .\release.ps1 -version ($Env:GITHUB_REF).trimstart('refs/tags/v') -binary ($Env:BINARY).ToTitleCase()
         working-directory: .\release\windows
         id: package
         env:
