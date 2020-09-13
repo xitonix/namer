@@ -19,12 +19,14 @@ If ( $wixVersionMatch.success ) {
   -version $version `
   -binary $binary
 
+$exe=(Get-Culture).TextInfo.ToTitleCase($binary)
+
 & "${env:wix}bin\candle.exe" `
   -nologo `
   -arch x64 `
   "-dAppVersion=$version" `
   "-dWixVersion=$wixVersion" `
-  "-dBinary=$binary" `
+  "-dAppName=$exe" `
   release.wxs
 If ( $LastExitCode -ne 0 ) {
     exit $LastExitCode
