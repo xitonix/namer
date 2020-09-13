@@ -23,6 +23,9 @@
                             Minimum='0.0.0' IncludeMinimum='yes'
                             Maximum='$(var.WixVersion)' IncludeMaximum='no' />
         </Upgrade>
+        <InstallExecuteSequence>
+            <RemoveExistingProducts Before="InstallInitialize" />
+        </InstallExecuteSequence>
         <Condition Message="Windows 7 (with Service Pack 1) or greater required.">
             ((VersionNT > 601) OR (VersionNT = 601 AND ServicePackLevel >= 1))
         </Condition>
