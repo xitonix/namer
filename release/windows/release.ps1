@@ -5,7 +5,7 @@ If ( ! ( Test-Path Env:wix ) ) {
     exit 1
 }
 
-$filename="$binary_v${version}_amd64.msi"
+$filename="${binary}_v${version}_amd64.msi"
 $wixVersion="0.0.0"
 $wixVersionMatch=[regex]::Match($version, '^([0-9]+\.[0-9]+\.[0-9]+)')
 If ( $wixVersionMatch.success ) {
@@ -19,14 +19,14 @@ If ( $wixVersionMatch.success ) {
   -version $version `
   -binary $binary
 
-$exe=(Get-Culture).TextInfo.ToTitleCase($binary)
+$appname=(Get-Culture).TextInfo.ToTitleCase($binary)
 
 & "${env:wix}bin\candle.exe" `
   -nologo `
   -arch x64 `
   "-dAppVersion=$version" `
   "-dWixVersion=$wixVersion" `
-  "-dAppName=$exe" `
+  "-dAppName=$appname" `
   release.wxs
 If ( $LastExitCode -ne 0 ) {
     exit $LastExitCode
