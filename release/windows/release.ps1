@@ -34,7 +34,7 @@ If ( $LastExitCode -ne 0 ) {
   -dcl:high `
   -ext WixUIExtension `
   -ext WixUtilExtension `
-  $env:BINARY.wixobj `
+  namer.wixobj `
   -o $filename
 If ( $LastExitCode -ne 0 ) {
     exit $LastExitCode
