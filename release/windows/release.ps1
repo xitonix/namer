@@ -1,7 +1,7 @@
 param($version,$binary)
 
 If ( ! ( Test-Path Env:wix ) ) {
-    Write-Error 'WiX not installed; cannot find %wix%.'
+    Write-Error 'Could not find WiX binaries %wix%'
     exit 1
 }
 
@@ -10,7 +10,7 @@ $wixVersion="0.0.0"
 $wixVersionMatch=[regex]::Match($version, '^([0-9]+\.[0-9]+\.[0-9]+)')
 If ( $wixVersionMatch.success ) {
     $wixVersion=$wixVersionMatch.captures.groups[1].value
-} Elseif ( $version -ne 'dev' ) {
+} Else {
     Write-Error "Invalid version $version"
     exit 1
 }
