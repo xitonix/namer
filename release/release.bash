@@ -1,7 +1,7 @@
 set -euxo pipefail
 
 SRC="$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
-RELEASE_VERSION=$(echo ${GITHUB_REF} | cut -d'/' -f3)
+RELEASE_VERSION=$(echo ${GITHUB_REF} | cut -d'v' -f2)
 RELEASE_OS="$(go env GOOS)"
 RELEASE_ARCH="$(go env GOARCH)"
 RELEASE_NAME="${BINARY}_${RELEASE_VERSION}_${RELEASE_OS}_${RELEASE_ARCH}"
