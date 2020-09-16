@@ -36,6 +36,37 @@ jobs:
         asset_path: ./${{ steps.package.outputs.file }}
         asset_name: ${{ steps.package.outputs.file }}
         asset_content_type: application/gzip
+  docker:
+    name: RPM and Debian
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2.1.2
+        with:
+          go-version: 1.15
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Download dependencies
+        run: go mod download -x
+        env:
+          GO111MODULE: on
+      - name: Package release
+        run: release/release.bash pack
+        env:
+          GO111MODULE: on
+        id: package
+      - name: Upload RPM
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ steps.package.outputs.rpm }}
+          asset_name: ${{ steps.package.outputs.rpm }}
+          asset_content_type: application/octet-stream
   windows:
     name: Windows
     runs-on: windows-latest
