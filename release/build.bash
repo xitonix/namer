@@ -10,4 +10,4 @@ RUNTIME=$(go version | cut -d' ' -f 3)
 
 cd "$(dirname "$(dirname "${BASH_SOURCE[0]}")")"
 VERSION="${2:-}"
-go build -o "$1" -ldflags="-s -w -X main.version=${VERSION} -X main.runtimeVer=${RUNTIME} -X main.commit=${GITHUB_SHA} -X 'main.built=${BUILD_TIME}'" *.go
+go build -o "$1" -ldflags="-s -w -X main.version=v${VERSION} -X main.runtimeVer=${RUNTIME} -X main.commit=${GITHUB_SHA} -X 'main.built=${BUILD_TIME}'" *.go
