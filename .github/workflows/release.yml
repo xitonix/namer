@@ -105,3 +105,12 @@ jobs:
           asset_path: .\release\windows\${{ steps.package.outputs.file }}
           asset_name: ${{ steps.package.outputs.file }}
           asset_content_type: application/gzip
+      - name: Upload TAR Archive
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: .\release\windows\${{ steps.package.outputs.archive }}
+          asset_name: ${{ steps.package.outputs.archive }}
+          asset_content_type: application/gzip

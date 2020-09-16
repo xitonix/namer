@@ -19,6 +19,8 @@ If ( $wixVersionMatch.success ) {
   -version $version `
   -binary $binary
 
+tar -cvzf "${binary}_${version}_windows.tar.gz" "${binary}.exe"
+
 $appname=(Get-Culture).TextInfo.ToTitleCase($binary)
 
 & "${env:wix}bin\candle.exe" `
@@ -42,3 +44,4 @@ If ( $LastExitCode -ne 0 ) {
     exit $LastExitCode
 }
 Write-Output "::set-output name=file::${filename}"
+Write-Output "::set-output name=archive::${filename}"
