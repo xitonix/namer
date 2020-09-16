@@ -6,6 +6,7 @@ If ( ! ( Test-Path Env:wix ) ) {
 }
 
 $filename="${binary}_${version}_amd64.msi"
+$tarfilename="${binary}_${version}_windows_amd64.tar.gz"
 $wixVersion="0.0.0"
 $wixVersionMatch=[regex]::Match($version, '^([0-9]+\.[0-9]+\.[0-9]+)')
 If ( $wixVersionMatch.success ) {
@@ -19,7 +20,7 @@ If ( $wixVersionMatch.success ) {
   -version $version `
   -binary $binary
 
-tar -cvzf "${binary}_${version}_windows.tar.gz" "${binary}.exe"
+tar -cvzf "${tarfilename}" "${binary}.exe"
 
 $appname=(Get-Culture).TextInfo.ToTitleCase($binary)
 
@@ -44,4 +45,4 @@ If ( $LastExitCode -ne 0 ) {
     exit $LastExitCode
 }
 Write-Output "::set-output name=file::${filename}"
-Write-Output "::set-output name=archive::${filename}"
+Write-Output "::set-output name=archive::${tarfilename}"
