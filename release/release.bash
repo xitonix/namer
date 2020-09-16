@@ -5,7 +5,7 @@ RELEASE_VERSION=$(echo ${GITHUB_REF} | cut -d'v' -f2)
 RELEASE_OS="$(go env GOOS)"
 RELEASE_ARCH="$(go env GOARCH)"
 RELEASE_NAME="${BINARY}_${RELEASE_VERSION}_${RELEASE_OS}_${RELEASE_ARCH}"
-BIN_DIR="${PACKAGE_DIR}/output/usr/bin"
+BIN_DIR="$(pwd)/output/usr/bin"
 RPM_ITERATION=1
 mkdir -p $BIN_DIR
 echo "Creating ${RELEASE_NAME}.tar.gz..." 1>&2
