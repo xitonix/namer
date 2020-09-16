@@ -5,6 +5,7 @@ env:
   VENDOR: Alex Golshani
   URL: http://xitonix.io
   DESCRIPTION: A CLI tool for Kafka
+  LICENSE: Apache License 2.0
 on:
   release:
    types: [published]

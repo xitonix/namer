@@ -16,6 +16,7 @@ if [[ $# -eq 1 ]]; then
         --description "${DESCRIPTION}" \
         --maintainer "${MAINTAINER}" \
         --vendor "${VENDOR}" \
+        --license "${LICENSE}" \
         --url "${URL}" \
         -s dir -t rpm \
         -n ${BINARY} \
@@ -26,6 +27,7 @@ if [[ $# -eq 1 ]]; then
         --description "${DESCRIPTION}" \
         --maintainer "${MAINTAINER}" \
         --vendor "${VENDOR}" \
+        --license "${LICENSE}" \
         --url "${URL}" \
         -s dir -t deb \
         -n ${BINARY} \
