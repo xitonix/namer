@@ -17,5 +17,5 @@ fi
 echo "::set-output name=file::${RELEASE_NAME}.tar.gz"
 
 if [[ $# -eq 1 ]]; then
-  echo "::set-output name=rpm::${BINARY}-${RELEASE_VERSION}-${RPM_ITERATION}.x86_64.rpm
+  echo "::set-output name=rpm::${BINARY}-${RELEASE_VERSION}-${RPM_ITERATION}.x86_64.rpm"
 fi
