@@ -13,7 +13,7 @@ echo "Creating ${RELEASE_NAME}.tar.gz..." 1>&2
 tar -C "${BIN_DIR}" -cvzf "${RELEASE_NAME}.tar.gz" "${BINARY}"
 if [[ $# -eq 1 ]]; then
   docker run --rm -v $(pwd):/root xitonix/fpm-rpm -C /root/output -s dir -t rpm -n ${BINARY} -p /root -v ${RELEASE_VERSION} --iteration ${RPM_ITERATION}
-  docker run --rm -v $(pwd):/root xitonix/fpm-deb -C /root/output -s dir -t deb -n ${BINARY} -p /root -v ${RELEASE_VERSION} --deb-use-file-permissions
+  docker run --rm -v $(pwd):/root xitonix/fpm-debian -C /root/output -s dir -t deb -n ${BINARY} -p /root -v ${RELEASE_VERSION} --deb-use-file-permissions
 fi
 
 echo "::set-output name=file::${RELEASE_NAME}.tar.gz"
