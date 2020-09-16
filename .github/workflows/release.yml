@@ -1,6 +1,10 @@
 name: Release
 env:
   BINARY: namer
+  MAINTAINER: Alex Golshani
+  VENDOR: Alex Golshani
+  URL: http://xitonix.io
+  DESCRIPTION: A CLI tool for Kafka
 on:
   release:
    types: [published]
