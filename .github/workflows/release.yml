@@ -38,6 +38,16 @@ jobs:
           asset_path: ./${{ steps.package.outputs.file }}
           asset_name: ${{ steps.package.outputs.file }}
           asset_content_type: application/gzip
+     - name: Bump Brew formula
+        uses: mislav/bump-homebrew-formula-action@v1
+        with:
+          formula-name: ${{ env.BINARY }}
+          homebrew-tap: xitonix/${{ env.BINARY }}
+          base-branch: master
+          download-url: https://github.com/xitonix/${{ env.BINARY }}/releases/download/${{ steps.package.outputs.version }}/${{ steps.package.outputs.file }}
+          commit-message: ${{ env.BINARY }} ${{ steps.package.outputs.version }}
+        env:
+          COMMITTER_TOKEN: ${{ secrets.BREW_TOKEN }}
   linux:
     name: Linux
     runs-on: ubuntu-18.04
