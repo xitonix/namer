@@ -38,7 +38,7 @@ jobs:
           asset_path: ./${{ steps.package.outputs.file }}
           asset_name: ${{ steps.package.outputs.file }}
           asset_content_type: application/gzip
-     - name: Bump Brew formula
+      - name: Bump Brew formula
         uses: mislav/bump-homebrew-formula-action@v1
         with:
           formula-name: ${{ env.BINARY }}
