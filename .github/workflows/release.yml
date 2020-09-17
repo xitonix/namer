@@ -10,43 +10,9 @@ on:
   release:
    types: [published]
 jobs:
-  unix:
-    name: Unix
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-18.04, macOS-latest]
-    steps:
-    - name: Set up Go
-      uses: actions/setup-go@v2.1.2
-      with:
-        go-version: 1.15
-    - name: Check out code
-      uses: actions/checkout@v2
-    - name: Download dependencies
-      run: go mod download -x
-      env:
-        GO111MODULE: on
-    - name: Package release
-      run: release/release.bash
-      env:
-        GO111MODULE: on
-      id: package
-    - name: Upload binary
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./${{ steps.package.outputs.file }}
-        asset_name: ${{ steps.package.outputs.file }}
-        asset_content_type: application/gzip
-  docker:
-    name: RPM and Debian
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-18.04]
+  mac:
+    name: Mac
+    runs-on: macOS-latest
     steps:
       - name: Set up Go
         uses: actions/setup-go@v2.1.2
@@ -59,11 +25,48 @@ jobs:
         env:
           GO111MODULE: on
       - name: Package release
-        run: release/release.bash pack
+        run: release/release_darwin.bash
         env:
           GO111MODULE: on
         id: package
-      - name: Upload RPM
+      - name: Upload binary
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ steps.package.outputs.file }}
+          asset_name: ${{ steps.package.outputs.file }}
+          asset_content_type: application/gzip
+  linux:
+    name: Linux
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v2.1.2
+      with:
+        go-version: 1.15
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Download dependencies
+      run: go mod download -x
+      env:
+        GO111MODULE: on
+    - name: Package release
+      run: release/release_linux.bash
+      env:
+        GO111MODULE: on
+      id: package
+    - name: Upload binary
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./${{ steps.package.outputs.file }}
+        asset_name: ${{ steps.package.outputs.file }}
+        asset_content_type: application/gzip
+    - name: Upload RPM
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,15 +75,15 @@ jobs:
           asset_path: ./${{ steps.package.outputs.rpm }}
           asset_name: ${{ steps.package.outputs.rpm }}
           asset_content_type: application/octet-stream
-      - name: Upload DEB
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./${{ steps.package.outputs.deb }}
-          asset_name: ${{ steps.package.outputs.deb }}
-          asset_content_type: application/octet-stream
+    - name: Upload DEB
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./${{ steps.package.outputs.deb }}
+        asset_name: ${{ steps.package.outputs.deb }}
+        asset_content_type: application/octet-stream
   windows:
     name: Windows
     runs-on: windows-latest
