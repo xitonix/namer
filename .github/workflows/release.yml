@@ -41,9 +41,9 @@ jobs:
       - name: Bump Brew formula
         uses: mislav/bump-homebrew-formula-action@v1
         with:
-          formula-name: ${{ env.BINARY }}
-          homebrew-tap: xitonix/${{ env.BINARY }}
-          download-url: https://github.com/xitonix/${{ env.BINARY }}/releases/download/${{ steps.package.outputs.version }}/${{ steps.package.outputs.file }}
+          formula-name: namer
+          homebrew-tap: xitonix/namer
+          download-url: https://github.com/xitonix/namer/releases/download/v0.0.55/namer_0.0.55_darwin_amd64.tar.gz
         env:
           COMMITTER_TOKEN: ${{ secrets.BREW_TOKEN }}
   linux:
