@@ -38,14 +38,15 @@ jobs:
           asset_path: ./${{ steps.package.outputs.file }}
           asset_name: ${{ steps.package.outputs.file }}
           asset_content_type: application/gzip
-      - name: Bump Brew formula
-        uses: mislav/bump-homebrew-formula-action@v1
-        with:
-          formula-name: namer
-          homebrew-tap: xitonix/namer
-          download-url: https://github.com/xitonix/namer/releases/download/v0.0.55/namer_0.0.55_darwin_amd64.tar.gz
+      - name: Bump Brew
         env:
-          COMMITTER_TOKEN: ${{ secrets.BREW_TOKEN }}
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.BREW_TOKEN }}
+        run: |
+          brew tap xitonix/${{ env.BINARY }}
+          brew bump-formula-pr -f --version=${{ steps.package.outputs.version }} --no-browse --no-audit \
+          --sha256=${{ steps.package.outputs.sha }} \
+          --url="https://github.com/xitonix/${{ env.BINARY }}/releases/download/${{ steps.package.outputs.version }}/${{ steps.package.outputs.file }}" \
+          xitonix/${{ env.BINARY }}/${{ env.BINARY }}
   linux:
     name: Linux
     runs-on: ubuntu-18.04
